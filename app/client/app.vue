@@ -55,7 +55,12 @@
 
 <template>
 	<div id="app">
-		<img class="cog" src="/imgs/cog.png" @click="settings()" />
+		<div id="info">
+			Errors over {{ days }} {{ days === 1 ? 'day' : 'days' }}
+		</div>
+		<div id="settings">
+			<img class="cog" src="/imgs/cog.png" @click="settings()" />
+		</div>
 		<h1>Fareoffice Sunflower Quality Visualiser</h1>
 		<div id="sky">
 			<div v-if="apps" id="flowers">
@@ -93,15 +98,27 @@
 		}
 	}
 
-	.cog {
+	#info {
+		position: absolute;
+		bottom: 10px;
+		left: 10px;
+		color: #FFFFFF;
+		text-transform: uppercase;
+	}
+
+	#settings {
 		position: absolute;
 		bottom: 10px;
 		right: 10px;
-		width: 32px;
-		height: 32px;
-		cursor: pointer;
-		&:hover {
-			animation: spin 0.75s ease-out;
+		.cog {
+			display: inline-block;
+			vertical-align: middle;
+			width: 32px;
+			height: 32px;
+			cursor: pointer;
+			&:hover {
+				animation: spin 0.75s ease-out;
+			}
 		}
 	}
 
