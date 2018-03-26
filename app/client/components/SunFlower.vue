@@ -61,12 +61,27 @@
 		}
 	}
 
+	$width: 30px;
+	$head: 80px;
+
 	.sunflower {
 		display: inline-block;
-		margin: 0px 50px;
-		width: 100px;
+		margin: 0px $width / 2;
+		width: $width;
 		line-height: 0px;
 		vertical-align: baseline;
+
+		&:hover {
+			z-index: 100;
+			position: relative;
+		}
+
+		@media screen and (max-width: 600px) {
+			width: 30px;
+			.head {
+				zoom: 0.5;
+			}
+		}
 
 		.errors {
 			position: relative;
@@ -81,11 +96,12 @@
 			background: #EEA345;
 			border: 10px solid #8E4129;
 			box-shadow: inset 0px 0px 0px 10px #CF7F39;
-			width: 80px;
-			height: 80px;
+			width: $head;
+			height: $head;
 			border-radius: 50%;
 			position: relative;
 			z-index: 2;
+			animation: petal-rotate 25s linear infinite;
 
 			.name {
 				text-transform: uppercase;
@@ -96,6 +112,8 @@
 				font-weight: bold;
 				line-height: 1;
 				transform: translate(0px, -50%);
+				transform-origin: 50% 0%;
+				animation: anti-petal-rotate 25s linear infinite;
 			}
 
 			.petal {
@@ -156,6 +174,16 @@
 		100% {
 			transform: scale(1) translate(-40px, 0px) rotate(135deg);
 		}
+	}
+
+	@keyframes petal-rotate {
+		0% { transform: rotate(0deg); }
+		100% { transform: rotate(360deg); }
+	}
+
+	@keyframes anti-petal-rotate {
+		0% { transform: rotate(0deg) translate(0px, -50%); }
+		100% { transform: rotate(-360deg) translate(0px, -50%); }
 	}
 
 </style>

@@ -2,7 +2,12 @@ var axios = require('axios')
 
 class ElasticSunflower {
 
-	constructor() {
+	constructor(data) {
+
+		this.days = data.days ? Math.min(Math.max(parseInt(data.days), 1), 365) : 14
+		// this.warn = parseInt(data.warn) === 1 || false
+		// this.error = parseInt(data.error) === 0 || true
+
 		this.apps = [
 			{
 				name: 'PBK Admin',
@@ -71,7 +76,7 @@ class ElasticSunflower {
 		return ready
 	}
 
-	search(index, key, value = 'ERROR', days = 14) {
+	search(index, key) {
 		let data = {
 			query: {
 				bool: {
@@ -82,7 +87,7 @@ class ElasticSunflower {
 						{
 							range: {
 								'@timestamp': {
-									gte: `now-${days}d/d`,
+									gte: `now-${this.days}d/d`,
 									lt: 'now/d'
 								}
 							}
@@ -91,7 +96,7 @@ class ElasticSunflower {
 				}
 			}
 		}
-		data.query.bool.must[0].match[key] = value
+		data.query.bool.must[0].match[key] = 'ERROR'
 		
 		return axios({
 			method: 'post',
