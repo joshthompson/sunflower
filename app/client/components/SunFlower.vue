@@ -117,8 +117,8 @@
 			}
 
 			.petal {
-				background: yellow;
-				height: 40px;
+				background: #FFFF00 linear-gradient(#FFFF00 40%, #FFCD00 100%);
+				height: 43px;
 				width: 10px;
 				margin: 0px -30px -30px 0px;
 				border-radius: 50% 50% 50% 50%;
