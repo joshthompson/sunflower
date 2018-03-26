@@ -13,7 +13,9 @@
 				days: 14,
 				warn: false,
 				error: true,
-				minMaxErrors: 20
+				minMaxErrors: 20,
+				timer: null,
+				refresh: 1000 * 3600 * 12 // 12 hours
 			}
 		},
 		computed: {
@@ -29,19 +31,23 @@
 					warn: this.warn ? 1 : 0,
 					error: this.error ? 1 : 0
 				}}).then(data => this.apps = data.data)
+				clearTimeout(this.timer)
+				this.timer = setTimeout(this.getData, this.refresh)
 			},
 			settings() {
-				let days = this.days
+				let prevDays = this.days
 				this.days = false
-				do {
-					this.days = parseInt(window.prompt('How many days? (-365)', days))
-					if (this.days > 365 || this.days < 1) {
-						this.days = false
-					}
-				} while (!this.days)
+				this.days = parseInt(window.prompt('How many days? (1-365)', prevDays))
+				if (this.days > 365 || this.days < 1) {
+					this.days = false
+				}
+				if (this.days) {
+					this.getData()
+				}
+				this.days = this.days ? this.days : prevDays
 				// this.warn = window.confirm('Show data for WARN messages in the logs?')
 				// this.error = window.confirm('Show data for ERROR messages in the logs?')
-				this.getData()
+				
 			}
 		}
 	}
