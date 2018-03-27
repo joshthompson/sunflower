@@ -1,9 +1,10 @@
 <script>
 	import SunFlower from './components/SunFlower.vue'
+	import BumbleBee from './components/BumbleBee.vue'
 	import axios from 'axios'
 	export default {
 		name: 'app',
-		components: { SunFlower },
+		components: { SunFlower, BumbleBee },
 		created() {
 			this.getData()
 		},
@@ -71,6 +72,7 @@
 					:errors="app.errors"
 					:max="max"
 				/>
+				<BumbleBee v-for="n in 6" :key="`bee_${n}`" />
 			</div>
 			<div v-if="!apps">
 				<h3>Loading</h3>
