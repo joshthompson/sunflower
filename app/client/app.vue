@@ -1,10 +1,11 @@
 <script>
 	import SunFlower from './components/SunFlower.vue'
 	import BumbleBee from './components/BumbleBee.vue'
+	import ModalWindow from './components/ModalWindow.vue'
 	import axios from 'axios'
 	export default {
 		name: 'app',
-		components: { SunFlower, BumbleBee },
+		components: { SunFlower, BumbleBee, ModalWindow },
 		created() {
 			this.getData()
 		},
@@ -16,6 +17,7 @@
 				error: true,
 				minMaxErrors: 20,
 				timer: null,
+				settings: false,
 				refresh: 1000 * 3600 * 12 // 12 hours
 			}
 		},
@@ -27,28 +29,19 @@
 		},
 		methods: {
 			getData() {
-				axios.get('/api/apps', {params: {
+				clearTimeout(this.timer)
+				this.timer = setTimeout(this.getData, this.refresh)
+				return axios.get('/api/apps', {params: {
 					days: this.days,
 					warn: this.warn ? 1 : 0,
 					error: this.error ? 1 : 0
 				}}).then(data => this.apps = data.data)
-				clearTimeout(this.timer)
-				this.timer = setTimeout(this.getData, this.refresh)
 			},
-			settings() {
-				let prevDays = this.days
-				this.days = false
-				this.days = parseInt(window.prompt('How many days? (1-365)', prevDays))
-				if (this.days > 365 || this.days < 1) {
-					this.days = false
-				}
-				if (this.days) {
-					this.getData()
-				}
-				this.days = this.days ? this.days : prevDays
-				// this.warn = window.confirm('Show data for WARN messages in the logs?')
-				// this.error = window.confirm('Show data for ERROR messages in the logs?')
-				
+			showSettings() {
+				this.settings = true
+			},
+			updateSettings() {
+				this.getData().then(() => this.settings = false)
 			}
 		}
 	}
@@ -60,7 +53,7 @@
 			Errors over {{ days }} {{ days === 1 ? 'day' : 'days' }}
 		</div>
 		<div id="settings">
-			<img class="cog" src="/imgs/cog.png" @click="settings()" />
+			<img class="cog" src="/imgs/cog.png" @click="showSettings()" />
 		</div>
 		<h1>Fareoffice Sunflower Quality Visualiser</h1>
 		<div id="sky">
@@ -79,6 +72,21 @@
 			</div>
 		</div>
 		<div id="ground"></div>
+
+		<ModalWindow v-if="settings" @close="settings = false">
+			<h2>Settings</h2>
+			<p>
+				<label>Days: <input type="number" v-model="days" /></label>
+			</p>
+			<!-- <p>
+				<span>Types:</span>
+				<label><input type="checkbox" checked /> ERROR</label>
+				<label><input type="checkbox" /> WARN</label>
+			</p> -->
+			<p>
+				<a class="btn" @click="updateSettings()">Update Settings</a>
+			</p>
+		</ModalWindow>
 	</div>
 </template>
 

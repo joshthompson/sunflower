@@ -1,5 +1,6 @@
 *, *:before, *:after {
 	box-sizing: border-box;
+	outline: none;
 }
 html {	
 	overflow: hidden;
@@ -14,4 +15,23 @@ body {
 	font-family: 'Oswald', sans-serif;
 	overflow: hidden;
 	min-width: 320px;
+}
+
+input[type=text],
+input[type=number] {
+	padding: 10px;
+	font-size: 1rem;
+}
+
+.btn {
+	display: inline-block;
+	padding: 5px 10px;
+	background: #000000;
+	color: #FFFFFF;
+	cursor: pointer;
+	font-size: 1rem;
+	text-transform: uppercase;
+	&:hover {
+		transform: scale(1.05);
+	}
 }

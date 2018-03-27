@@ -11,12 +11,20 @@
 		},
 		created() {
 			this.move()
+			this.top = Math.random() * 15 + 10;
+			if (Math.random() > 0.5) {
+				this.top = -this.top
+				this.direc = 'left'
+			} else {
+				this.top = 100 + this.top
+				this.direc = 'right'
+			}
 		},
 		computed: {
 			position() {
 				return {
 					top: `${this.top}vh`,
-					left: `${this.left}vh`,
+					left: `${this.left}vw`,
 				}
 			}
 		},
@@ -45,14 +53,20 @@
 </template>
 
 <style lang="scss" scoped>
-	
+
 	.bee {
+
+		@media screen and (max-width: 600px) {
+			zoom: 0.5;
+		}
+
 		position: fixed;
 		z-index: 200;
 		animation: bumble 1s ease-in-out infinite;
 		&.reverse {
 			animation: bumble-backwards 1s ease-in-out infinite;
 		}
+
 		font-size: 0px;
 		transition: top 10s ease-in-out, left 10s ease-in-out;
 		.stinger {
@@ -64,7 +78,7 @@
 			vertical-align: middle;
 		}
 		.wing {
-			background: rgba(255, 255, 255, 0.05);
+			background: rgba(255, 255, 255, 0.15);
 			display: inline-block;
 			width: 20px;
 			height: 20px;
