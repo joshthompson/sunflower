@@ -5,10 +5,14 @@
 	import Fly from './components/Fly.vue'
 	import ModalWindow from './components/ModalWindow.vue'
 	import axios from 'axios'
+	import Cookie from 'js-cookie'
 	export default {
 		name: 'app',
 		components: { SunFlower, Poop, BumbleBee, Fly, ModalWindow },
 		created() {
+			const settings = Cookie.getJSON('settings') || {}
+			this.mode = settings.mode || 'sunflower'
+			this.days = settings.days || 14
 			this.getData()
 		},
 		data() {
@@ -45,6 +49,10 @@
 			},
 			updateSettings() {
 				this.getData().then(() => this.settings = false)
+				Cookie.set('settings', {
+					days: this.days,
+					mode: this.mode
+				})
 			}
 		}
 	}
@@ -58,7 +66,7 @@
 		<div id="settings">
 			<img class="cog" src="/imgs/cog.png" @click="showSettings()" />
 		</div>
-		<h1>Fareoffice Sunflower Quality Visualiser</h1>
+		<h1>Fareoffice {{mode}} Quality Visualiser</h1>
 		<div id="sky">
 			<div v-if="apps && mode === 'sunflower'" id="flowers">
 				<SunFlower
@@ -106,7 +114,7 @@
 				<label><input type="checkbox" /> WARN</label>
 			</p> -->
 			<p>
-				<a class="btn" @click="updateSettings()">Close</a>
+				<a class="btn" @click="updateSettings()">Update / Close</a>
 			</p>
 		</ModalWindow>
 	</div>
@@ -124,7 +132,7 @@
 		line-height: 10vh;
 		position: fixed;
 		width: 100vw;
-
+		text-transform: capitalize;
 		@media screen and (max-width: 600px) {
 			font-size: 18px;
 		}
