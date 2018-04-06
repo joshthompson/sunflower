@@ -31,6 +31,9 @@
 			},
 			leaves() {
 				return Math.ceil(this.dead * this.maxLeaves)
+			},
+			insectScore() {
+				return 1 - this.errors / this.max
 			}
 		}
 	}

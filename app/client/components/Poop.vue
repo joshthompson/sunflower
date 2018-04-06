@@ -5,7 +5,7 @@
 		data() {
 			return {
 				minSize: 36,
-				maxSize: 240
+				maxSize: 160
 			}
 		},
 		created() {
@@ -14,13 +14,16 @@
 		computed: {
 			size() {
 				return this.minSize + (this.maxSize - this.minSize) * (this.errors / this.max)
+			},
+			insectScore() {
+				return this.errors / this.max
 			}
 		}
 	}
 </script>
 
 <template>
-	<div class="poop">
+	<div class="poop" :honey="insectScore">
 		<div class="name">{{name}}</div>
 		<div class="icon" :style="`font-size: ${size}px`">
 			<span v-if="errors !== 0">💩</span>

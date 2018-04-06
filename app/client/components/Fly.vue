@@ -6,7 +6,6 @@
 			return {
 				top: 50,
 				left: 50,
-				direction: 'right',
 				animate: false
 			}
 		},
@@ -15,27 +14,62 @@
 			this.move()
 			this.top = Math.random() * 15 + 10;
 			if (Math.random() > 0.5) {
-				this.top = -this.top
+				this.top = -this.top * window.innerHeight / 100
 				this.direc = 'left'
 			} else {
-				this.top = 100 + this.top
+				this.top = (100 + this.top) * window.innerHeight / 100
 				this.direc = 'right'
 			}
 		},
 		computed: {
 			position() {
 				return {
-					top: `${this.top}vh`,
-					left: `${this.left}vw`,
+					top: `${this.top}px`,
+					left: `${this.left}px`,
 				}
 			}
 		},
 		methods: {
+			honeyPots() {
+				const poops = Array.from(document.getElementsByClassName('poop'))
+				return poops.filter(poop => poop.attributes.honey)
+			},
+			pickAPot(pots) {
+				const total = pots.map(poop => {
+					return Math.pow(parseInt(poop.attributes.honey.value), 0.3)
+				}).reduce((a, b) => a + b, 0)
+				const score = Math.random() * total
+				let current = 0
+				if (score === 0) {
+					return pots[Math.floor(Math.random() * pots.length)]
+				} else {
+					for (let i = 0; i < pots.length; i++) {
+						current += parseInt(pots[i].attributes.honey.value)
+						if (current >= score) {
+							return pots[i]
+						}
+					}
+				}
+			},
+			pos(poop) {
+				return {
+					left: poop.offsetLeft + poop.clientWidth / 2,
+					top: poop.offsetTop + poop.clientHeight / 2
+				}
+			},
 			move() {
-				const prevLeft = this.left
-				this.top = Math.random() * 50 + 10
-				this.left = Math.random() * 150 + -25
-				this.direc = this.left > prevLeft ? 'right' : 'left'
+				const honeyPots = this.honeyPots()
+
+				if (honeyPots.length === 0 || Math.random() < 0.3) {
+					this.top = (Math.random() * 50 + 10) * window.innerHeight / 100
+					this.left = (Math.random() * 150 + -25) * window.innerWidth / 100
+				} else {
+					const pos = this.pos(this.pickAPot(honeyPots))
+					const variance = 300
+					this.top = pos.top + Math.random() * variance - variance / 2
+					this.left = pos.left + Math.random() * variance - variance / 2
+				}
+
 				setTimeout(this.move, Math.random() * 15000 + 5000)
 			}
 		}
