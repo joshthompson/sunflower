@@ -1,11 +1,12 @@
 <script>
 	import SunFlower from './components/SunFlower.vue'
+	import Poo from './components/Poo.vue'
 	import BumbleBee from './components/BumbleBee.vue'
 	import ModalWindow from './components/ModalWindow.vue'
 	import axios from 'axios'
 	export default {
 		name: 'app',
-		components: { SunFlower, BumbleBee, ModalWindow },
+		components: { SunFlower, Poo, BumbleBee, ModalWindow },
 		created() {
 			this.getData()
 		},
@@ -58,7 +59,7 @@
 		<h1>Fareoffice Sunflower Quality Visualiser</h1>
 		<div id="sky">
 			<div v-if="apps" id="flowers">
-				<SunFlower
+				<Poo
 					v-for="app in apps"
 					:key="app.name"
 					:name="app.name"
@@ -151,7 +152,7 @@
 		height: 70vh;
 		display: flex;
 		align-items: flex-end;
-		.sunflower {
+		.sunflower, .poo {
 			flex-grow: 1;
 		}
 
