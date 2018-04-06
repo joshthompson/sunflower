@@ -1,6 +1,6 @@
 <script>
 	export default {
-		name: 'Poo',
+		name: 'Poop',
 		props: ['name', 'errors', 'max'],
 		data() {
 			return {
@@ -20,7 +20,7 @@
 </script>
 
 <template>
-	<div class="poo">
+	<div class="poop">
 		<div class="name">{{name}}</div>
 		<div class="icon" :style="`font-size: ${size}px`">💩</div>
 		<div class="errors">{{errors}}</div>
@@ -28,7 +28,7 @@
 </template>
 
 <style lang="scss" scoped>
-	.poo {
+	.poop {
 		.errors, .nam {
 			position: relative;
 			z-index: 3;
