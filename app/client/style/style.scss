@@ -18,9 +18,12 @@ body {
 }
 
 input[type=text],
-input[type=number] {
+input[type=number],
+select {
 	padding: 10px;
 	font-size: 1rem;
+	-webkit-appearance: none;
+	appearance: none;
 }
 
 .btn {

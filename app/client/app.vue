@@ -1,17 +1,20 @@
 <script>
 	import SunFlower from './components/SunFlower.vue'
+	import Poop from './components/Poop.vue'
 	import BumbleBee from './components/BumbleBee.vue'
+	import Fly from './components/Fly.vue'
 	import ModalWindow from './components/ModalWindow.vue'
 	import axios from 'axios'
 	export default {
 		name: 'app',
-		components: { SunFlower, BumbleBee, ModalWindow },
+		components: { SunFlower, Poop, BumbleBee, Fly, ModalWindow },
 		created() {
 			this.getData()
 		},
 		data() {
 			return {
 				apps: false,
+				mode: 'sunflower',
 				days: 14,
 				warn: false,
 				error: true,
@@ -57,7 +60,7 @@
 		</div>
 		<h1>Fareoffice Sunflower Quality Visualiser</h1>
 		<div id="sky">
-			<div v-if="apps" id="flowers">
+			<div v-if="apps && mode === 'sunflower'" id="flowers">
 				<SunFlower
 					v-for="app in apps"
 					:key="app.name"
@@ -65,7 +68,17 @@
 					:errors="app.errors"
 					:max="max"
 				/>
-				<BumbleBee v-for="n in 6" :key="`bee_${n}`" />
+				<BumbleBee v-for="n in 12" :key="`insect_${n}`" />
+			</div>
+			<div v-if="apps && mode === 'poop'" id="poops">
+				<Poop
+					v-for="app in apps"
+					:key="app.name"
+					:name="app.name"
+					:errors="app.errors"
+					:max="max"
+				/>
+				<Fly v-for="n in 12" :key="`insect_${n}`" />
 			</div>
 			<div v-if="!apps">
 				<h3>Loading</h3>
@@ -78,13 +91,22 @@
 			<p>
 				<label>Days: <input type="number" v-model="days" /></label>
 			</p>
+			<p>
+				<label>
+					<span>Mode:</span>
+					<select v-model="mode">
+						<option value="sunflower">🌻 Sunflowers</option>
+						<option value="poop">💩 Poops</option>
+					</select>
+				</label>
+			</p>
 			<!-- <p>
 				<span>Types:</span>
 				<label><input type="checkbox" checked /> ERROR</label>
 				<label><input type="checkbox" /> WARN</label>
 			</p> -->
 			<p>
-				<a class="btn" @click="updateSettings()">Update Settings</a>
+				<a class="btn" @click="updateSettings()">Close</a>
 			</p>
 		</ModalWindow>
 	</div>
@@ -147,11 +169,11 @@
 		flex-grow: 1;
 	}
 
-	#flowers {
+	#flowers, #poops {
 		height: 70vh;
 		display: flex;
 		align-items: flex-end;
-		.sunflower {
+		& .sunflower, & .poop {
 			flex-grow: 1;
 		}
 
