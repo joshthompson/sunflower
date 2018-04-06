@@ -6,10 +6,12 @@
 			return {
 				top: 50,
 				left: 50,
-				direction: 'right'
+				direction: 'right',
+				animate: false
 			}
 		},
 		created() {
+			setTimeout(() => this.animate = true, parseInt(Math.random() * 1000))
 			this.move()
 			this.top = Math.random() * 15 + 10;
 			if (Math.random() > 0.5) {
@@ -41,9 +43,10 @@
 </script>
 
 <template>
-	<div class="fly" :style="position" :class="{reverse: direc === 'left'}">
+	<div :class="{fly: true, animate: animate}" :style="position">
 		<div class="wing"></div>
 		<div class="body"></div>
+		<div class="wing"></div>
 	</div>
 </template>
 
@@ -57,34 +60,46 @@
 
 		position: fixed;
 		z-index: 200;
-		animation: bumble 1s ease-in-out infinite;
-		&.reverse {
-			animation: bumble-backwards 1s ease-in-out infinite;
+
+		&.animate {
+			animation: bumble 1s ease-in-out infinite;
+			.wing {
+				animation: wing2 0.1s infinite;
+				&:nth-child(1) {
+					animation: wing1 0.1s infinite;
+				}
+			}
 		}
 
 		font-size: 0px;
 		transition: top 10s ease-in-out, left 10s ease-in-out;
 		.wing {
-			background: rgba(255, 255, 255, 0.15);
+			background: rgba(255, 255, 255, 0.5);
 			display: inline-block;
 			width: 10px;
 			height: 10px;
 			border-radius: 50%;
-			margin: 0px -15px 5px 5px;
+			// border: 1px solid black;
+			// margin: 0px -15px 0px 5px;
 			position: relative;
-			z-index: 2;
-			animation: wing 0.1s infinite;
+			z-index: 1;
 			transform-origin: 50% 100%;
+			margin-bottom: 2px;
+			margin-left: -6px;
+			&:nth-child(1) {
+				margin-left: 0px;
+				margin-right: -7px;
+			}
 		}
 		.body {
 			display: inline-block;
 			vertical-align: middle;
-			height: 15px;
-			width: 18px;
+			height: 10px;
+			width: 10px;
 			border-radius: 10px;
 			background: #222222;
 			position: relative;
-			z-index: 1;
+			z-index: 3;
 		}
 	}
 
@@ -93,14 +108,14 @@
 		50% { transform: translate(0px, -10px); }
 	}
 
-	@keyframes bumble-backwards {
-		0%, 100% { transform: translate(0px, 10px) scaleX(-1); }
-		50% { transform: translate(0px, -10px) scaleX(-1); }
+	@keyframes wing1 {
+		0%, 100% { transform: rotate(-45deg) scaleY(0.3); }
+		50% { transform: rotate(-45deg) scaleY(1); }
 	}
 
-	@keyframes wing {
-		0%, 100% { transform: scaleY(0.3); }
-		50% { transform: scaleY(1); }
+	@keyframes wing2 {
+		0%, 100% { transform: rotate(45deg) scaleY(0.3); }
+		50% { transform: rotate(45deg) scaleY(1); }
 	}
 
 </style>

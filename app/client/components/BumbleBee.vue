@@ -78,7 +78,7 @@
 			vertical-align: middle;
 		}
 		.wing {
-			background: rgba(255, 255, 255, 0.15);
+			background: rgba(255, 255, 255, 0.25);
 			display: inline-block;
 			width: 20px;
 			height: 20px;

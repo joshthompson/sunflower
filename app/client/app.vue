@@ -86,7 +86,7 @@
 					:errors="app.errors"
 					:max="max"
 				/>
-				<Fly v-for="n in 12" :key="`insect_${n}`" />
+				<Fly v-for="n in 30" :key="`insect_${n}`" />
 			</div>
 			<div v-if="!apps">
 				<h3>Loading</h3>
