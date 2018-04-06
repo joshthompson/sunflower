@@ -3,12 +3,13 @@
 	import Poop from './components/Poop.vue'
 	import BumbleBee from './components/BumbleBee.vue'
 	import Fly from './components/Fly.vue'
+	import NewsAeroplane from './components/NewsAeroplane.vue'
 	import ModalWindow from './components/ModalWindow.vue'
 	import axios from 'axios'
 	import Cookie from 'js-cookie'
 	export default {
 		name: 'app',
-		components: { SunFlower, Poop, BumbleBee, Fly, ModalWindow },
+		components: { SunFlower, Poop, BumbleBee, Fly, NewsAeroplane, ModalWindow },
 		created() {
 			const settings = Cookie.getJSON('settings') || {}
 			this.mode = settings.mode || 'sunflower'
@@ -68,6 +69,7 @@
 		</div>
 		<h1>Fareoffice {{mode}} Quality Visualiser</h1>
 		<div id="sky">
+			<NewsAeroplane />
 			<div v-if="apps && mode === 'sunflower'" id="flowers">
 				<SunFlower
 					v-for="app in apps"

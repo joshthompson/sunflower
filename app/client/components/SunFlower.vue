@@ -66,6 +66,7 @@
 
 	.sunflower {
 		display: inline-block;
+		position: relative;
 		margin: 0px $width / 2;
 		width: $width;
 		line-height: 0px;
