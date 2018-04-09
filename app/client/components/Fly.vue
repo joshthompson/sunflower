@@ -40,10 +40,10 @@
 				}
 			},
 			windowWidth() {
-				return window.outerWidth * window.devicePixelRatio
+				return window.outerWidth
 			},
 			windowHeight() {
-				return window.outerHeight * window.devicePixelRatio
+				return window.outerHeight
 			}
 		},
 		methods: {
