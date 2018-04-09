@@ -27,7 +27,7 @@
 		<div class="name">{{name}}</div>
 		<div class="icon" :style="`font-size: ${size}px`">
 			<span v-if="errors !== 0">💩</span>
-			<span v-if="errors === 0">🚽</span>
+			<span v-if="errors === 0">🐮</span>
 		 </div>
 		<div class="errors">{{errors}}</div>
 	</div>
