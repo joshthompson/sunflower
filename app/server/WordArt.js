@@ -12,20 +12,31 @@ class WordArt {
  			this.ascii('Evil'),
  			this.ascii('FarePayment'),
  			this.ascii('Payback'),
- 			this.ascii('Stockholm'),
- 			this.ascii('Sverige'),
- 			this.ascii('Fridhemsplan'),
  			this.ascii('Testing'),
  			this.ascii('Kibana'),
  			this.ascii('Watto'),
- 			this.ascii('3D Printer'),
  			this.ascii('Jenkins'),
- 			this.ascii('Rocket Leauge'),
- 			this.ascii('Lammkött'),
- 			this.ascii('Dumskalle'),
+ 			this.ascii('SysOps'),
+
+ 			this.ascii('Stockholm'),
+ 			this.ascii('Sverige'),
+ 			this.ascii('3D Printer'),
+ 			this.ascii('Rocket Leauge?'),
+
  			this.ascii('Tjena'),
  			this.ascii('Hejsan'),
  			this.ascii('Hallå'),
+ 			this.ascii('Lammkött'),
+ 			this.ascii('Dumskalle'),
+ 			this.ascii('Kanon!'),
+ 			this.ascii('Toppen!'),
+ 			this.ascii('Vad kul!'),
+
+ 			this.ascii('Flies!!!'),
+ 			this.ascii('Vi är flugorna'),
+ 			this.ascii('Haglar flugorna'),
+ 			this.ascii('Dyrka flugorna'),
+ 			this.ascii('Prisa flugorna'),
 
  			this.ascii('Arezou'),
  			this.ascii('Martin'),
@@ -78,6 +89,19 @@ class WordArt {
 #      #  #               #
 #      #  #               #
 ###########################`,
+`
+       ########
+    ###        ###
+  ##      ##      ##
+ #   ##   ##   ##   #
+#    ##        ##    #
+#                    #
+#  ###          ###  #
+#   #            #   #
+ #   ############   #
+  ##              ##
+    ###        ###
+       ########`,
 `
 #####   ######  #    #  #######   ####   #
 #    #  #       ##   #     #     #    #  #
@@ -307,6 +331,19 @@ class WordArt {
 				  .
 				  #
 				  .`,
+
+			'?': `####
+				  ...#
+				  .###
+				  ....
+				  .#..`,
+
+			'!': `##
+				  ##
+				  ##
+				  ..
+				  ##`,
+
 			' ': `..
 				  .. 
 				  ..
