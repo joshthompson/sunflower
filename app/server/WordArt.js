@@ -3,14 +3,14 @@ class WordArt {
 	constructor() {
  		this.words = [
  			this.ascii('FareOffice'),
- 			this.ascii('Shame'),
- 			this.ascii('PBK: Admin'),
+ 			this.ascii('PBK:Admin'),
  			this.ascii('Widget'),
  			this.ascii('JFox'),
  			this.ascii('Evil'),
  			this.ascii('FearOffice'),
  			this.ascii('Evil'),
  			this.ascii('FarePayment'),
+ 			this.ascii('Rental Front'),
  			this.ascii('Payback'),
  			this.ascii('Testing'),
  			this.ascii('Kibana'),
@@ -20,7 +20,7 @@ class WordArt {
 
  			this.ascii('Stockholm'),
  			this.ascii('Sverige'),
- 			this.ascii('3D Printer'),
+ 			this.ascii('3D-Printer'),
  			this.ascii('Rocket Leauge?'),
 
  			this.ascii('Tjena'),
@@ -31,10 +31,10 @@ class WordArt {
  			this.ascii('Kanon!'),
  			this.ascii('Toppen!'),
  			this.ascii('Vad kul!'),
+ 			this.ascii('Shame'),
 
  			this.ascii('Flies!!!'),
  			this.ascii('Vi är flugorna'),
- 			this.ascii('Haglar flugorna'),
  			this.ascii('Dyrka flugorna'),
  			this.ascii('Prisa flugorna'),
 
@@ -102,22 +102,6 @@ class WordArt {
   ##              ##
     ###        ###
        ########`,
-`
-#####   ######  #    #  #######   ####   #
-#    #  #       ##   #     #     #    #  #
-#    #  #       # #  #     #     #    #  #
-####    #####   #  # #     #     ######  #
-#   #   #       #   ##     #     #    #  #
-#    #  #       #    #     #     #    #  #
-#    #  ####### #    #     #     #    #  ######
-                                            
-   ######  #####     ###    #    #  #######
-   #       #    #   #   #   ##   #     #
-   #       #    #  #     #  # #  #     #
-   ####    # ##    #     #  #  # #     #
-   #       #   #   #     #  #   ##     #
-   #       #    #   #   #   #    #     #
-   #       #    #    ###    #    #     #`,
 		]
 	}
 
@@ -344,19 +328,23 @@ class WordArt {
 				  ..
 				  ##`,
 
-			' ': `..
-				  .. 
-				  ..
-				  ..
-				  ..`
+			'-': `...
+				  ...
+				  ###
+				  ...
+				  ...`
 		}
-		let wordArt = ['','','','','']
-		text.toUpperCase().split('').forEach((c, n) => {
-			letters[c].split('\n').forEach((s, i) => {
-				wordArt[i] = wordArt[i] === '' ? s.trim() : `${wordArt[i]}  ${s.trim()}`
+
+		return text.split(' ').map(t => {
+			let wordArt = ['','','','','']
+			t.toUpperCase().split('').forEach((c, n) => {
+				letters[c].split('\n').forEach((s, i) => {
+					wordArt[i] = wordArt[i] === '' ? s.trim() : `${wordArt[i]}  ${s.trim()}`
+				})
 			})
-		})
-		return '\n' + wordArt.join('\n')
+			return '\n' + wordArt.join('\n')
+		}).join('\n\n')
+		
 	}
 
 }
