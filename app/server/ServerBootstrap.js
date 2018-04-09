@@ -63,7 +63,7 @@ if (process.env.AUTO_UPDATE_GITHUB) {
 	// Checks GitHub every minute for new version
 	const gitUpdate = () => {
 		exec('git pull origin', (error, out) => {
-			console.log(`git pull origin:\n${out}`)
+			// console.log(`git pull origin:\n${out}`)
 		})
 		setTimeout(gitUpdate, 1000 * 60)
 	}
