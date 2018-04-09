@@ -24,7 +24,7 @@
 				days: 14,
 				warn: false,
 				error: true,
-				minMaxErrors: 20,
+				minMaxErrors: 10,
 				timer: null,
 				settings: false,
 				refresh: 1000 * 3600 * 12 // 12 hours

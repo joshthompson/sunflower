@@ -25,7 +25,7 @@
 					this.top = 125 + this.y
 					this.left = 200 + this.x
 
-				}, 1000)
+				}, Math.random() * 3000 + 1000)
 				setTimeout(() => {
 					this.setStartPos()
 					this.left += Math.random() * 100 - 50
@@ -46,10 +46,14 @@
 				this.top = Math.random() * 15 + 10;
 				if (Math.random() > 0.5) {
 					this.top = -this.top * window.innerHeight / 100
-					this.direc = 'left'
 				} else {
 					this.top = (100 + this.top) * window.innerHeight / 100
-					this.direc = 'right'
+				}
+				this.left = Math.random() * 15 + 10;
+				if (Math.random() > 0.5) {
+					this.left = -this.left * window.innerWidth / 100
+				} else {
+					this.left = (100 + this.left) * window.innerWidth / 100
 				}
 			},
 			honeyPots() {

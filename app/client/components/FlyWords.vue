@@ -14,6 +14,7 @@
 			}
 		},
 		created() {
+			// this.formWord() // Good for testing
 			setTimeout(this.formWord, 1000 * this.refresh)
 		},
 		methods: {
@@ -23,7 +24,7 @@
 					this.processWord(this.word)
 					setTimeout(() => {
 						this.flies = []
-					}, 1000 * this.duration)
+					}, 1000 * this.duration * 2)
 					setTimeout(this.formWord, 1000 * this.refresh)
 				})
 			},
