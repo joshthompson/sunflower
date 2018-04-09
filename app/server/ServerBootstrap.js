@@ -1,4 +1,5 @@
 var ElasticSunflower = require('./ElasticSunflower')
+var WordArt = require('./WordArt')
 var express = require('express')
 var app = express()
 var http = require('http').Server(app)
@@ -46,3 +47,9 @@ app.route('/api/news').get((req, res) => {
 		res.send(null)
 	}
 })
+
+app.route('/api/word').get((req, res) => {
+	const word = new WordArt()
+	res.send(word.getWord())
+})
+

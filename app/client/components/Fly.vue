@@ -1,24 +1,36 @@
 <script>
 	export default {
 		name: 'Fly',
-		props: ['name', 'errors', 'max'],
+		props: ['name', 'errors', 'max', 'x', 'y', 'word'],
 		data() {
 			return {
 				top: 50,
 				left: 50,
-				animate: false
+				animate: false,
+
 			}
 		},
 		created() {
-			setTimeout(() => this.animate = true, parseInt(Math.random() * 1000))
-			this.move()
-			this.top = Math.random() * 15 + 10;
-			if (Math.random() > 0.5) {
-				this.top = -this.top * window.innerHeight / 100
-				this.direc = 'left'
+			
+			if (!this.word) {
+				// Normal behaviour
+				setTimeout(() => this.animate = true, parseInt(Math.random() * 1000))
+				this.move()
+				this.setStartPos()
 			} else {
-				this.top = (100 + this.top) * window.innerHeight / 100
-				this.direc = 'right'
+				// Fly word behaviour
+				this.animate = true
+				this.setStartPos()
+				setTimeout(() => {
+					this.top = 125 + this.y
+					this.left = 200 + this.x
+
+				}, 1000)
+				setTimeout(() => {
+					this.setStartPos()
+					this.left += Math.random() * 100 - 50
+					this.top += Math.random() * 100 - 50
+				}, this.word)
 			}
 		},
 		computed: {
@@ -30,6 +42,16 @@
 			}
 		},
 		methods: {
+			setStartPos() {
+				this.top = Math.random() * 15 + 10;
+				if (Math.random() > 0.5) {
+					this.top = -this.top * window.innerHeight / 100
+					this.direc = 'left'
+				} else {
+					this.top = (100 + this.top) * window.innerHeight / 100
+					this.direc = 'right'
+				}
+			},
 			honeyPots() {
 				const poops = Array.from(document.getElementsByClassName('poop'))
 				return poops.filter(poop => poop.attributes.honey)

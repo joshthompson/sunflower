@@ -4,12 +4,13 @@
 	import BumbleBee from './components/BumbleBee.vue'
 	import Fly from './components/Fly.vue'
 	import NewsAeroplane from './components/NewsAeroplane.vue'
+	import FlyWords from './components/FlyWords.vue'
 	import ModalWindow from './components/ModalWindow.vue'
 	import axios from 'axios'
 	import Cookie from 'js-cookie'
 	export default {
 		name: 'app',
-		components: { SunFlower, Poop, BumbleBee, Fly, NewsAeroplane, ModalWindow },
+		components: { SunFlower, Poop, BumbleBee, Fly, NewsAeroplane, FlyWords, ModalWindow },
 		created() {
 			const settings = Cookie.getJSON('settings') || {}
 			this.mode = settings.mode || 'sunflower'
@@ -89,6 +90,7 @@
 					:max="max"
 				/>
 				<Fly v-for="n in 30" :key="`insect_${n}`" />
+				<FlyWords />
 			</div>
 			<div v-if="!apps">
 				<h3>Loading</h3>
