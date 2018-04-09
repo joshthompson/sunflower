@@ -11,7 +11,6 @@
 			}
 		},
 		created() {
-			
 			if (!this.word) {
 				// Normal behaviour
 				setTimeout(() => this.animate = true, parseInt(Math.random() * 1000))
@@ -39,21 +38,27 @@
 					top: `${this.top}px`,
 					left: `${this.left}px`,
 				}
+			},
+			windowWidth() {
+				return window.outerWidth * window.devicePixelRatio
+			},
+			windowHeight() {
+				return window.outerHeight * window.devicePixelRatio
 			}
 		},
 		methods: {
 			setStartPos() {
 				this.top = Math.random() * 15 + 10;
 				if (Math.random() > 0.5) {
-					this.top = -this.top * window.outerHeight / 100
+					this.top = -this.top * this.windowHeight / 100
 				} else {
-					this.top = (100 + this.top) * window.outerHeight / 100
+					this.top = (100 + this.top) * this.windowHeight / 100
 				}
 				this.left = Math.random() * 15 + 10;
 				if (Math.random() > 0.5) {
-					this.left = -this.left * window.outerWidth / 100
+					this.left = -this.left * this.windowWidth / 100
 				} else {
-					this.left = (100 + this.left) * window.outerWidth / 100
+					this.left = (100 + this.left) * this.windowWidth / 100
 				}
 			},
 			honeyPots() {
@@ -87,8 +92,8 @@
 				const honeyPots = this.honeyPots()
 
 				if (honeyPots.length === 0 || Math.random() < 0.3) {
-					this.top = (Math.random() * 50 + 10) * window.innerHeight / 100
-					this.left = (Math.random() * 150 + -25) * window.innerWidth / 100
+					this.top = (Math.random() * 50 + 10) * this.windowHeight / 100
+					this.left = (Math.random() * 150 + -25) * this.windowWidth / 100
 				} else {
 					const pos = this.pos(this.pickAPot(honeyPots))
 					const variance = 300
@@ -164,7 +169,7 @@
 	}
 
 	@keyframes bumble {
-		0%, 100% { transform: translate(0px, 10px); }
+		0% 100% { transform: translate(0px, 10px); }
 		50% { transform: translate(0px, -10px); }
 	}
 
