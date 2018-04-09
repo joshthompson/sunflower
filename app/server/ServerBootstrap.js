@@ -1,13 +1,13 @@
-var ElasticSunflower = require('./ElasticSunflower')
-var WordArt = require('./WordArt')
-var express = require('express')
-var app = express()
-var http = require('http').Server(app)
-var axios = require('axios')
+const ElasticSunflower = require('./ElasticSunflower')
+const WordArt = require('./WordArt')
+const express = require('express')
+const app = express()
+const http = require('http').Server(app)
+const axios = require('axios')
+const { exec } = require('child_process')
 
 const port = process.env.PORT || 5005
 const start = +new Date()
-
 
 http.listen(port, () => {
 	console.log('\033c')
@@ -58,4 +58,15 @@ app.route('/api/word').get((req, res) => {
 	const word = new WordArt()
 	res.send(word.getWord())
 })
+
+if (process.env.AUTO_UPDATE_GITHUB) {
+	// Checks GitHub every minute for new version
+	const gitUpdate = () => {
+		exec('git pull origin', (error, out) => {
+			console.log(`git pull origin:\n${out}`)
+		})
+		setTimeout(gitUpdate, 1000 * 60)
+	}
+	setTimeout(gitUpdate, 1000 * 60)
+}
 
