@@ -48,18 +48,8 @@
 		},
 		methods: {
 			setStartPos() {
-				this.top = Math.random() * 15 + 10;
-				if (Math.random() > 0.5) {
-					this.top = -this.top * this.windowHeight / 100
-				} else {
-					this.top = (100 + this.top) * this.windowHeight / 100
-				}
-				this.left = Math.random() * 15 + 10;
-				if (Math.random() > 0.5) {
-					this.left = -this.left * this.windowWidth / 100
-				} else {
-					this.left = (100 + this.left) * this.windowWidth / 100
-				}
+				this.top = -100
+				this.left = Math.random() * this.windowWidth
 			},
 			honeyPots() {
 				const poops = Array.from(document.getElementsByClassName('poop'))
