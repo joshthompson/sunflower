@@ -5,7 +5,9 @@ var app = express()
 var http = require('http').Server(app)
 var axios = require('axios')
 
-let port = process.env.PORT || 5005
+const port = process.env.PORT || 5005
+const start = +new Date()
+
 
 http.listen(port, () => {
 	console.log('\033c')
@@ -23,6 +25,10 @@ http.listen(port, () => {
 `)
 })
 app.use(express.static('public'))
+
+app.route('/api/ping').get((req, res) => {
+	res.send('' + start)
+})
 
 app.route('/api/apps').get((req, res) => {
 	const sunflower = new ElasticSunflower(req.query)

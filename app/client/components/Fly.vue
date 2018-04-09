@@ -45,15 +45,15 @@
 			setStartPos() {
 				this.top = Math.random() * 15 + 10;
 				if (Math.random() > 0.5) {
-					this.top = -this.top * window.innerHeight / 100
+					this.top = -this.top * window.outerHeight / 100
 				} else {
-					this.top = (100 + this.top) * window.innerHeight / 100
+					this.top = (100 + this.top) * window.outerHeight / 100
 				}
 				this.left = Math.random() * 15 + 10;
 				if (Math.random() > 0.5) {
-					this.left = -this.left * window.innerWidth / 100
+					this.left = -this.left * window.outerWidth / 100
 				} else {
-					this.left = (100 + this.left) * window.innerWidth / 100
+					this.left = (100 + this.left) * window.outerWidth / 100
 				}
 			},
 			honeyPots() {

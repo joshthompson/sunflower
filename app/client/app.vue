@@ -16,6 +16,7 @@
 			this.mode = settings.mode || 'sunflower'
 			this.days = settings.days || 14
 			this.getData()
+			this.checkVersion()
 		},
 		data() {
 			return {
@@ -27,6 +28,7 @@
 				minMaxErrors: 10,
 				timer: null,
 				settings: false,
+				serverStart: null,
 				refresh: 1000 * 3600 * 12 // 12 hours
 			}
 		},
@@ -37,6 +39,18 @@
 			}
 		},
 		methods: {
+			checkVersion() {
+				axios.get('/api/ping').then(res => {
+					if (this.serverStart) {
+						if (this.serverStart !== res.data) {
+							window.location.href = window.location.href
+						}
+					} else {
+						this.serverStart = res.data
+					}
+					setTimeout(this.checkVersion, 1000 * 60)
+				})
+			},
 			getData() {
 				clearTimeout(this.timer)
 				this.timer = setTimeout(this.getData, this.refresh)
