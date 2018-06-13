@@ -30,6 +30,7 @@
   },
   "scripts": {
     "build": "webpack --watch",
+    "build:production": "webpack",
     "build:prod": "webpack --config ./webpack.config.prod.js",
     "db": "mongod",
     "start": "nodemon app.js"
