@@ -22,6 +22,9 @@ class WordArt {
  			this.ascii('Sverige'),
  			this.ascii('3D-Printer'),
  			this.ascii('Rocket Leauge?'),
+ 			this.ascii('Duck Game'),
+ 			this.ascii('QUACK'),
+ 			this.ascii('Kitchen!'),
 
  			this.ascii('Tjena'),
  			this.ascii('Hejsan'),
@@ -37,10 +40,11 @@ class WordArt {
  			this.ascii('Vi är flugorna'),
  			this.ascii('Dyrka flugorna'),
  			this.ascii('Prisa flugorna'),
+ 			this.ascii('Vi är flugorna'),
 
  			this.ascii('Arezou'),
  			this.ascii('Martin'),
- 			this.ascii('Yuri'),
+ 			this.ascii('Yurii'),
  			this.ascii('Lauro'),
  			this.ascii('Daniel'),
  			this.ascii('Olle'),
@@ -102,6 +106,17 @@ class WordArt {
   ##              ##
     ###        ###
        ########`,
+`
+  #                             #   #
+ #                             #   #
+ #                             #   #   #
+ #                             #   #
+###  ###   ## ##   ###   ###  ### ### ##   ###   ### 
+ #      #   ##  # #   # #   #  #   #   #  #   # #   #
+ #   ####   #     ##### #   #  #   #   #  #     #####
+ #  #   #   #     #     #   #  #   #   #  #   # #
+###  ### # ###     ###   ###  ### ### ###  ###   ### 
+`
 		]
 	}
 
@@ -322,11 +337,11 @@ class WordArt {
 				  ....
 				  .#..`,
 
-			'!': `##
-				  ##
-				  ##
-				  ..
-				  ##`,
+			'!': `#
+				  #
+				  #
+				  .
+				  #`,
 
 			'-': `...
 				  ...
