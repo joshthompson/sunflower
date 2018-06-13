@@ -1,61 +1,73 @@
 var axios = require('axios')
+var KPIAverageTestScoreQuery = require('./queries/KPIAverageTestScore')
 
 class ElasticSunflower {
 
 	constructor(data) {
 
 		this.days = data.days ? Math.min(Math.max(parseInt(data.days), 1), 365) : 14
-		// this.warn = parseInt(data.warn) === 1 || false
-		// this.error = parseInt(data.error) === 0 || true
+		this.ready = false
 
 		this.apps = [
 			{
 				name: 'PBK Admin',
-				index: 'app-pbkadmin-logs-*',
-				key: 'data.pbkadmin.level',
-				errors: null
+				kpi: {
+					key: 'pbk-admin',
+					score: null
+				}
 			},
 			{
-				name: 'Widget',
-				index: 'app-widget-logs-*',
-				key: 'logger.level.name',
-				errors: null
+				name: 'Sites',
+				kpi: {
+					key: 'sites',
+					score: null
+				}
 			},
 			{
 				name: 'Payback',
-				index: 'app-payback-logs-*',
-				key: 'logger.level.name',
-				errors: null
+				kpi: {
+					key: 'payback',
+					score: null
+				}
 			},
 			{
-				name: 'Fare Payment',
-				index: 'app-sps-logs-*',
-				key: 'logger.level.name',
-				errors: null
+				name: 'Fareoffice.com',
+				kpi: {
+					key: 'fareoffice-website',
+					score: null
+				}
 			},
 			{
-				name: 'JFox',
-				index: 'app-jfox-logs-*',
-				key: 'logger.level.name',
-				errors: null
+				name: 'Widget',
+				kpi: {
+					key: 'ehi-pbk',
+					score: null
+				}
 			},
 			{
-				name: 'Rental Front',
-				index: 'app-fox-logs-*',
-				key: 'logger.level.name',
-				errors: null
+				name: 'Rocket League Stats',
+				kpi: {
+					key: 'rocket-league-stats',
+					score: null
+				}
 			}
 		]
 
-		this.getErrors()
+		Promise.all([
+			this.getKPIData()
+		]).then(() => this.ready = true).catch(error => console.log('Caught Error:', error))
 
 	}
 
 	getData() {
-		return this.apps.map(app => ({
+		return this.ready ? this.apps.map(app => ({
 			name: app.name,
-			errors: app.errors
-		}))
+			scores: {
+				kpi: app.kpi.score,
+				// uptime: app.uptime.score,
+				// ...
+			}
+		})) : null
 	}
 
 	getErrors() {
@@ -66,42 +78,22 @@ class ElasticSunflower {
 		})
 	}
 
-	ready() {
-		let ready = true
-		this.apps.forEach(app => {
-			if (typeof app.errors !== 'number') {
-				ready = false
-			}
+	getKPIData() {
+		const query = KPIAverageTestScoreQuery(`now-${this.days}d/d`, 'now/d')
+		return this.search('quality-metrics*', query).then(resp => {
+			resp.data.aggregations.results.buckets.forEach(bucket => {
+				this.apps
+					.filter(app => app.kpi.key === bucket.key)
+					.forEach(app => app.kpi.score = bucket.score.value)
+			})
 		})
-		return ready
 	}
 
-	search(index, key) {
-		let data = {
-			query: {
-				bool: {
-					must: [
-						{
-							match: {}
-						},
-						{
-							range: {
-								'@timestamp': {
-									gte: `now-${this.days}d/d`,
-									lt: 'now/d'
-								}
-							}
-						}
-					]
-				}
-			}
-		}
-		data.query.bool.must[0].match[key] = 'ERROR'
-		
+	search(index, query) {
 		return axios({
 			method: 'post',
-			url: `http://10.100.0.31:9200/${index}/_count`,
-			data: data,
+			url: `http://10.100.0.31:9200/${index}/_search`,
+			data: query,
 			auth: {
 				username: process.env.ELASTIC_USER,
 				password: process.env.ELASTIC_PASS

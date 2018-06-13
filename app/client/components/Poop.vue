@@ -1,7 +1,7 @@
 <script>
 	export default {
 		name: 'Poop',
-		props: ['name', 'errors', 'max'],
+		props: ['name', 'score', 'max'],
 		data() {
 			return {
 				minSize: 36,
@@ -13,10 +13,10 @@
 		},
 		computed: {
 			size() {
-				return this.minSize + (this.maxSize - this.minSize) * (this.errors / this.max)
+				return this.minSize + (this.maxSize - this.minSize) * (this.score / this.max)
 			},
 			insectScore() {
-				return this.errors / this.max
+				return this.score / this.max
 			}
 		}
 	}
@@ -26,16 +26,16 @@
 	<div class="poop" :honey="insectScore">
 		<div class="name">{{name}}</div>
 		<div class="icon" :style="`font-size: ${size}px`">
-			<span v-if="errors !== 0">💩</span>
-			<span v-if="errors === 0">🚽</span>
+			<span v-if="score !== 0">💩</span>
+			<span v-if="score === 0">🚽</span>
 		 </div>
-		<div class="errors">{{errors}}</div>
+		<div class="score">{{Math.round(100 - score)}}</div>
 	</div>
 </template>
 
 <style lang="scss" scoped>
 	.poop {
-		.errors, .nam {
+		.score, .nam {
 			position: relative;
 			z-index: 3;
 			margin-top: 15px;

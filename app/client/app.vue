@@ -34,7 +34,8 @@
 		},
 		computed: {
 			max() {
-				const errors = this.apps && this.apps.map ? this.apps.map(app => app.errors) : [0]
+				return 100
+				const errors = this.apps && this.apps.map ? this.apps.map(app => app.scores.kpi) : [0]
 				return Math.max(Math.max(...errors), this.minMaxErrors)
 			}
 		},
@@ -55,9 +56,7 @@
 				clearTimeout(this.timer)
 				this.timer = setTimeout(this.getData, this.refresh)
 				return axios.get('/api/apps', {params: {
-					days: this.days,
-					warn: this.warn ? 1 : 0,
-					error: this.error ? 1 : 0
+					days: this.days
 				}}).then(data => this.apps = data.data)
 			},
 			showSettings() {
@@ -90,7 +89,7 @@
 					v-for="app in apps"
 					:key="app.name"
 					:name="app.name"
-					:errors="app.errors"
+					:score="100 - app.scores.kpi"
 					:max="max"
 				/>
 				<BumbleBee v-for="n in 12" :key="`insect_${n}`" />
@@ -100,7 +99,7 @@
 					v-for="app in apps"
 					:key="app.name"
 					:name="app.name"
-					:errors="app.errors"
+					:errors="100 - app.scores.kpi"
 					:max="max"
 				/>
 				<Fly v-for="n in 30" :key="`insect_${n}`" />

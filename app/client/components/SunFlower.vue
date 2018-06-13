@@ -1,7 +1,7 @@
 <script>
 	export default {
 		name: 'SunFlower',
-		props: ['name', 'errors', 'max'],
+		props: ['name', 'score', 'max'],
 		data() {
 			return {
 				minHeight: 10,
@@ -15,7 +15,7 @@
 		},
 		computed: {
 			dead() {
-				return 1 - this.errors / this.max
+				return 1 - this.score / this.max
 			},
 			deadHead() {
 				let dead = this.dead / 2 + 0.5
@@ -33,7 +33,7 @@
 				return Math.ceil(this.dead * this.maxLeaves)
 			},
 			insectScore() {
-				return 1 - this.errors / this.max
+				return 1 - this.score / this.max
 			}
 		}
 	}
@@ -48,7 +48,7 @@
 		<div class="stalk" :style="{height: `${height}`}">
 			<div class="leaf" v-for="n in leaves" :key="`leaf_${n}`"></div>
 		</div>
-		<div class="errors">{{errors}}</div>
+		<div class="score">{{Math.round(100 - score)}}</div>
 	</div>
 </template>
 
@@ -87,7 +87,7 @@
 			}
 		}
 
-		.errors {
+		.score {
 			position: relative;
 			z-index: 3;
 			margin-top: 15px;

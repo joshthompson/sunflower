@@ -32,14 +32,14 @@ app.route('/api/ping').get((req, res) => {
 
 app.route('/api/apps').get((req, res) => {
 	const sunflower = new ElasticSunflower(req.query)
-	const checkErrors = () => {
-		if (sunflower.ready()) {
+	const getAppData = () => {
+		if (sunflower.ready) {
 			res.send(sunflower.getData())
 		} else {
-			setTimeout(checkErrors, 100)
+			setTimeout(getAppData, 100)
 		}
 	}
-	checkErrors()
+	getAppData()
 })
 
 app.route('/api/news').get((req, res) => {
